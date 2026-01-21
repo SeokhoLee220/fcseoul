@@ -326,10 +326,10 @@ with tab2:
 
 # 탭 3: 경기장 정보
 with tab3:
-        left2, right2 = st.columns([1.2, 1], gap="large")
+    left2, right2 = st.columns([1.2, 1], gap="large")
     
     with left2:
-            st.subheader("서울월드컵경기장 지도 & 추천 경로")
+        st.subheader("서울월드컵경기장 지도 & 추천 경로")
     
         if os.path.exists(MAP_PATH):
                 img = Image.open(MAP_PATH)
@@ -351,4 +351,3 @@ with tab3:
         with st.container(border=True):
             st.markdown("**화장실 / 편의점**")
             st.write("가까운 위치를 구역 기준으로 안내")
-
