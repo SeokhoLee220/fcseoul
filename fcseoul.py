@@ -159,19 +159,21 @@ with tab1:
                 disabled=not is_before_kickoff,
             )
 
+            score_opts = ["선택하세요"] + list(range(0, CONFIG["score_max"] + 1))
+
             st.caption("스코어를 예측하세요.")
             col_s1, col_s2 = st.columns(2)
             with col_s1:
                 seoul_goals = st.selectbox(
                     "서울 득점",
-                    list(range(0, CONFIG["score_max"] + 1)),
-                    index=1,
+                    score_opts,
+                    index=0,
                     disabled=not is_before_kickoff,
                 )
             with col_s2:
                 seoul_conceded = st.selectbox(
                     "서울 실점",
-                    list(range(0, CONFIG["score_max"] + 1)),
+                    score_opts,
                     index=0,
                     disabled=not is_before_kickoff,
                 )
