@@ -220,8 +220,12 @@ with tab1:
     # =========================
     # 2) 하프타임 퀴즈
     # =========================
+
+
     with t_half:
         st.subheader("하프타임 퀴즈")
+
+        final_player = ""    
 
         with st.form("form_halftime"):
             short_q = st.text_input(
@@ -266,6 +270,8 @@ with tab1:
     # =========================
     with t_mom:
         st.subheader("오늘의 MOM 투표")
+
+        final_mom = ""
 
         with st.form("form_mom"):
             mom_pick = st.selectbox("MOM을 선택하세요", CONFIG["mom_candidates"])
@@ -351,3 +357,92 @@ with tab3:
         with st.container(border=True):
             st.markdown("**화장실 / 편의점**")
             st.write("가까운 위치를 구역 기준으로 안내")
+
+import gspread
+from google.oauth2.service_account import Credentials
+
+@st.cache_resource  # ✅ 매번 인증/연결하지 않게 캐시
+def get_gsheet():
+    creds_dict = dict(st.secrets["google"])
+    scopes = [
+        "https://www.googleapis.com/auth/spreadsheets",
+        "https://www.googleapis.com/auth/drive",
+    ]
+    creds = Credentials.from_service_account_info(creds_dict, scopes=scopes)
+    gc = gspread.authorize(creds)
+
+    spreadsheet_name = st.secrets["sheets"]["spreadsheet_name"]
+    worksheet_name = st.secrets["sheets"]["worksheet_name"]
+
+    sh = gc.open(spreadsheet_name)
+
+    # 워크시트 없으면 생성
+    try:
+        ws = sh.worksheet(worksheet_name)
+    except gspread.WorksheetNotFound:
+        ws = sh.add_worksheet(title=worksheet_name, rows=1000, cols=50)
+
+    return ws
+
+def append_row_gsheet(row: dict):
+    ws = get_gsheet()
+
+    # ✅ 1) 헤더 읽기 (가능하면 1행만)
+    values = ws.get_all_values()
+    if len(values) == 0:
+        headers = list(row.keys())
+        ws.append_row(headers)
+    else:
+        headers = values[0]
+
+    # ✅ 2) 누락 컬럼이 있으면 헤더 확장
+    missing = [k for k in row.keys() if k not in headers]
+    if missing:
+        headers = headers + missing
+        ws.delete_rows(1)
+        ws.insert_row(headers, 1)
+
+    # ✅ 3) 헤더 순서대로 값 채워서 append
+    row_values = [row.get(h, "") for h in headers]
+    ws.append_row(row_values, value_input_option="USER_ENTERED")
+    
+append_row_gsheet(
+    {
+        "ts": now_kst_str(),
+        "type": "prediction",
+        "nickname": nickname.strip(),
+        "phone4": phone4.strip(),
+        "new_fan": is_new_fan,
+        "prediction": pred,
+        "auto_prediction": auto_pred,
+        "seoul_goals": seoul_goals,
+        "seoul_conceded": seoul_conceded,
+        "match": f"{m['home']} vs {m['away']} ({m['date']})",
+    }
+)
+
+append_row_gsheet(
+    {
+        "ts": now_kst_str(),
+        "type": "halftime",
+        "nickname": nickname.strip(),
+        "phone4": phone4.strip(),
+        "new_fan": is_new_fan,
+        "halftime_short_answer": short_q.strip(),
+        "impressive_player": final_player,
+        "match": f"{m['home']} vs {m['away']} ({m['date']})",
+    }
+)
+
+append_row_gsheet(
+    {
+        "ts": now_kst_str(),
+        "type": "mom",
+        "nickname": nickname.strip(),
+        "phone4": phone4.strip(),
+        "new_fan": is_new_fan,
+        "mom": final_mom,
+        "comment": comment.strip(),
+        "match": f"{m['home']} vs {m['away']} ({m['date']})",
+    }
+)
