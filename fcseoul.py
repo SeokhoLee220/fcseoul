@@ -186,8 +186,6 @@ with tab1:
             else:
                 auto_pred = "FC서울 패"
 
-            st.info(f"예측 스코어: **{seoul_goals}-{seoul_conceded}**")
-
 
             submitted = st.form_submit_button(
                 "예측 제출",
