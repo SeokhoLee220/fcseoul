@@ -188,36 +188,6 @@ with tab1:
 
             st.info(f"예측 스코어: **{seoul_goals}-{seoul_conceded}**")
 
-            mismatch = (pred != auto_pred)
-            if mismatch:
-                st.warning("선택한 승무패와 예측 스코어가 서로 일치하지 않습니다.")
-
-            submitted = st.form_submit_button(
-                "예측 제출",
-                disabled=(not is_before_kickoff) or mismatch
-            )
-
-        if submitted:
-            if not (now_kst() < kickoff_dt):
-                st.error("경기 시작 이후에는 승패/스코어 예측 제출이 불가합니다.")
-            elif nickname.strip() == "":
-                st.error("닉네임을 먼저 입력해 주세요.")
-            else:
-                append_row(
-                    PRED_PATH,
-                    {
-                        "ts": now_kst_str(),
-                        "nickname": nickname.strip(),
-                        "phone4": phone4.strip(),
-                        "new_fan": is_new_fan,
-                        "prediction": pred,
-                        "auto_prediction": auto_pred,
-                        "seoul_goals": seoul_goals,
-                        "seoul_conceded": seoul_conceded,
-                        "match": f"{m['home']} vs {m['away']} ({m['date']})",
-                    },
-                )
-                st.success("제출 완료!")
 
     # =========================
     # 2) 하프타임 퀴즈
