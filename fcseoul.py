@@ -267,7 +267,7 @@ with tab1:
     # 3) 오늘의 MOM 투표
     # =========================
     with t_mom:
-        st.subheader("오늘의 MOM 투표")
+        st.subheader("Man of the Match 투표")
 
         final_mom = ""
 
