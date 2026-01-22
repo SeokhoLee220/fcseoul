@@ -25,8 +25,8 @@ CONFIG = {
     "match": {
         "home": "FC서울",
         "away": "상대팀",
-        "date": "2026-01-22",
-        "kickoff": "19:30",
+        "date": "2026-01-23",
+        "kickoff": "04:30",
         "venue": "서울월드컵경기장(상암)",
     },
 
@@ -82,7 +82,6 @@ def now_kst_str() -> str:
     return now_kst().strftime("%Y-%m-%d %H:%M:%S")
 
 def parse_kickoff_kst(match_cfg: dict) -> datetime:
-    # match_cfg: {"date": "YYYY-MM-DD", "kickoff": "HH:MM"}
     dt_str = f"{match_cfg['date']} {match_cfg['kickoff']}:00"
     # timezone-aware KST
     return datetime.strptime(dt_str, "%Y-%m-%d %H:%M:%S").replace(tzinfo=KST)
