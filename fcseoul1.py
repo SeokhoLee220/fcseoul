@@ -11,13 +11,34 @@ MAP_PATH = "assets/1번 출입구.jpg"
 
 
 st.set_page_config(
-    page_title="FC서울 팬 참여 허브",
+    page_title="WELCOME to FC서울 (1번 출입구)",
     layout="wide",
 )
 
+def set_background(image_path):
+    with open(image_path, "rb") as f:
+        encoded = f.read()
+    import base64
+    encoded_bg = base64.b64encode(encoded).decode()
+
+    st.markdown(
+        f"""
+        <style>
+        .stApp {{
+            background-image: url("data:image/png;base64,{encoded_bg}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+#set_background("assets/배경.png")
+
 KST = ZoneInfo("Asia/Seoul")
-
-
 
 CONFIG = {
     "match": {
@@ -32,22 +53,22 @@ CONFIG = {
     "score_max": 7,
 
     "watch_points": [
-        "초반 압박 강도와 전환",
-        "측면 돌파",
-        "수비 라인",
+        "이기는 팀이 우승에 가까워지는, 사실상의 결승전.",
+        "전반 시작 후 첫 10분, 서울이 얼마나 적극적으로 공을 되찾으려 드는지 주목해 보세요.",
+        "송민규가 공을 갖지 않을 때의 위치를 살펴보세요.",
     ],
 
 
     "chants": [
         {"title": "우리의 서울", "lyrics": "서울 우리의 서울 너와 나 함께 오늘을 기억할 거야\n서울 우리의 서울 언제나 우리 내일을 노래할 거야\n서울 서울 서울 서울\n수많은 밤을 보내며 너와 나 지쳐갈 때면\n우린 때로 끝을 바라겠지만   그 어둠 속에서\n아파했던 맘은 언젠가는 다 희미해질 거야\n메마른 밤의 끝에서 조금은 힘들겠지만\n똑같은 어젠 오지 않을 거라고\n나의 손을 잡아 이 밤을 열고\n밝은 빛을 찾아   우린 나아갈 거야 함께\n서울 우리의 서울 너와 나 함께 오늘을 기억할 거야\n서울 우리의 서울 언제나 우리 내일을 노래할 거야\n서울 서울 서울 서울\n아침을 맞이하고서 너와 나 마주볼 때면\n슬픔 가득한 기억도 있겠지만\n그 시간 속에서 너와 나 함께면\n두려움은 없을 것만 같아 우린\n서울 우리의 서울 너와 나 함께 오늘을 기억할 거야\n서울 우리의 서울 언제나 우리 내일을 노래할 거야\n서울 서울 서울 서울\n서울 우리의 서울 너와 나 함께 오늘을 기억할 거야\n서울 우리의 서울 언제나 우리 내일을 노래할 거야\n서울 우리의 서울 너와 나 함께 오늘을 기억할 거야\n서울 우리의 서울 언제나 우리 내일을 노래할 거야\n서울 서울 서울 서울"},
-        {"title": "응원가", "lyrics": "응원가 가사"},
+        {"title": "FC서울의 승리를", "lyrics": "|: FC서울의 승리를\nFC서울의 승리를\nFC서울 오늘 승리하리라\nFC서울의 승리를\nFC서울 알레오 (서울)\nFC서울 알레오 (서울)\nFC서울 알레알레오\nFC서울 알레오 (서울) :|\n|: 알레 알레 알레오 알레오 (서울)\n알레 알레 알레오 알레오 (서울)\n알레 알레 알레오 알레 알레 알레오\n알레 알레 알레오 알레오 (서울) :|"},
     ],
     "chants_link": "https://www.instagram.com/fcseoul/",
 
     "key_players": [
-        {"name": "키플레이어 A", "role": "공격수", "one_liner": "강한 슈팅과 세밀한 골결정력"},
-        {"name": "키플레이어 B", "role": "미드필더", "one_liner": "넓은 시야와 창의적인 패스"},
-        {"name": "키플레이어 C", "role": "수비수", "one_liner": "빠른 발과 강한 몸싸움"},
+        {"name": "송민규", "role": "(공격수)", "one_liner": "빠른 침투과 현란한 드리블"},
+        {"name": "김진수", "role": "(수비수)", "one_liner": "노련한 수비와 날카로운 크로스"},
+        {"name": "강현무", "role": "(골키퍼)", "one_liner": "뛰어난 반사신경과 안정적인 수비"},
     ],
 
 
@@ -56,9 +77,9 @@ CONFIG = {
         "max_chars": 10,
     },
 
-    "impressive_players": ["선수 A", "선수 B", "선수 C", "선수 D"],
+    "impressive_players": ["송민규", "문선민", "정승원", "조영욱"],
 
-    "mom_candidates": ["선수 A", "선수 B", "선수 C", "선수 D"],
+    "mom_candidates": ["송민규", "문선민", "정승원", "조영욱"],
 }
 
 
@@ -137,10 +158,10 @@ tab1, tab2, tab3 = st.tabs(["오늘의 이벤트", "오늘의 정보", "경기�
 # 탭 1: 오늘의 이벤트
 
 with tab1:
-    t_pred, t_half, t_mom = st.tabs(["승부 예측", "하프타임 퀴즈", "오늘의 MOM"])
+    t_pred, t_half= st.tabs(["경기 전", "하프타임"])
 
     with t_pred:
-        st.subheader("경기 전: 승부 예측")
+        st.subheader("경기 전")
 
         with st.form("form_prediction"):
             pred = st.radio(
@@ -176,6 +197,7 @@ with tab1:
             else:
                 auto_pred = "FC서울 패"
 
+            pred_pick = st.selectbox("오늘의 Man of the Match를 예측하세요", CONFIG["mom_candidates"])
 
             submitted = st.form_submit_button(
                 "예측 제출",
@@ -183,28 +205,14 @@ with tab1:
                 disabled=(not is_before_kickoff)
             )    
             
-        if submitted:
-            if not (now_kst() < kickoff_dt):
-                st.error("경기 시작 이후에는 승패/스코어 예측 제출이 불가합니다.")
-            elif nickname.strip() == "":
-                st.error("닉네임을 먼저 입력해 주세요.")
-            else:
-                append_row(
-                    PRED_PATH,
-                    {
-                        "ts": now_kst_str(),
-                        "nickname": nickname.strip(),
-                        "phone4": phone4.strip(),
-                        "new_fan": is_new_fan,
-                        "prediction": pred,
-                        "auto_prediction": auto_pred,
-                        "seoul_goals": seoul_goals,
-                        "seoul_conceded": seoul_conceded,
-                        "match": f"{m['home']} vs {m['away']} ({m['date']})",
-                    },
-                )
-                st.success("제출 완료!")
 
+        final_mom = ""
+
+        with st.form("form_mom"):
+            mom_custom = ""
+
+            comment = st.text_input("FC 서울을 위한 응원 한마디")
+            submitted_m = st.form_submit_button("제출")
 
     with t_half:
         st.subheader("하프타임 퀴즈")
@@ -217,73 +225,10 @@ with tab1:
                 max_chars=CONFIG["halftime_short"]["max_chars"],
             )
 
-            st.divider()
-            st.caption("전반전에 인상깊었던 선수")
-            impressive_pick = st.selectbox("선수 선택", CONFIG["impressive_players"])
 
             impressive_custom = ""
-            if impressive_pick == "기타(직접 입력)":
-                impressive_custom = st.text_input("직접 입력", placeholder="선수 이름")
-
             submitted_h = st.form_submit_button("제출")
 
-        if submitted_h:
-            if nickname.strip() == "":
-                st.error("닉네임을 먼저 입력해 주세요.")
-            else:
-                final_player = impressive_custom.strip() if impressive_pick == "기타(직접 입력)" else impressive_pick
-                if final_player == "":
-                    st.error("인상깊었던 선수를 선택해 주세요.")
-                else:
-                    append_row(
-                        QUIZ_PATH,
-                        {
-                            "ts": now_kst_str(),
-                            "nickname": nickname.strip(),
-                            "phone4": phone4.strip(),
-                            "new_fan": is_new_fan,
-                            "halftime_short_answer": short_q.strip(),
-                            "impressive_player": final_player,
-                            "match": f"{m['home']} vs {m['away']} ({m['date']})",
-                        },
-                    )
-                    st.success("제출 완료!")
-
-    with t_mom:
-        st.subheader("Man of the Match 투표")
-
-        final_mom = ""
-
-        with st.form("form_mom"):
-            mom_pick = st.selectbox("MOM을 선택하세요", CONFIG["mom_candidates"])
-            mom_custom = ""
-            if mom_pick == "기타(직접 입력)":
-                mom_custom = st.text_input("직접 입력", placeholder="선수 이름")
-
-            comment = st.text_input("한 줄 코멘트", placeholder="예: 첫번째 득점이 멋있었다.")
-            submitted_m = st.form_submit_button("MOM 투표 제출")
-
-        if submitted_m:
-            if nickname.strip() == "":
-                st.error("닉네임을 먼저 입력해 주세요.")
-            else:
-                final_mom = mom_custom.strip() if mom_pick == "기타(직접 입력)" else mom_pick
-                if final_mom == "":
-                    st.error("MOM을 입력/선택해 주세요.")
-                else:
-                    append_row(
-                        MOM_PATH,
-                        {
-                            "ts": now_kst_str(),
-                            "nickname": nickname.strip(),
-                            "phone4": phone4.strip(),
-                            "new_fan": is_new_fan,
-                            "mom": final_mom,
-                            "comment": comment.strip(),
-                            "match": f"{m['home']} vs {m['away']} ({m['date']})",
-                        },
-                    )
-                    st.success("투표 완료!")
 # 탭 2: 오늘의 정보
 with tab2:
     c1, c2, c3 = st.columns([1, 1, 1], gap="large")
@@ -292,7 +237,7 @@ with tab2:
         st.subheader("오늘의 관전 포인트")
         for wp in CONFIG["watch_points"]:
             with st.container(border=True):
-                st.write("• " + wp)
+                st.write(wp)
 
     with c2:
         st.subheader("오늘의 응원가")
@@ -316,28 +261,25 @@ with tab3:
     left2, right2 = st.columns([1.2, 1], gap="large")
     
     with left2:
-        st.subheader("서울월드컵경기장 지도 & 추천 경로")
+        st.subheader("서울월드컵경기장 지도")
     
         if os.path.exists(MAP_PATH):
                 img = Image.open(MAP_PATH)
                 st.image(img, use_container_width=True)
         else:
                 st.warning("지도 이미지가 없습니다. assets/서울월드컵경기장.gif 경로를 확인하세요.")
-    
-        st.markdown("**추천 루트**")
-        st.write("입장 → 포토존 → 좌석 → 화장실/편의점 → 좌석")
+
 
     with right2:
-        st.subheader(" 주요 위치 안내")
-        with st.container(border=True):
-            st.markdown("**입구**")
-            st.write("안내 문구")
         with st.container(border=True):
             st.markdown("**포토존**")
-            st.write("오늘의 포토존 위치")
+            st.write("3번 출입구 옆 마스코트 인형")
         with st.container(border=True):
-            st.markdown("**화장실 / 편의점**")
-            st.write("가까운 위치를 구역 기준으로 안내")
+            st.markdown("**화장실**")
+            st.write("2번 출입구 옆")
+        with st.container(border=True):
+            st.markdown("**편의점**")
+            st.write("1번 출입구 옆")
 
 import gspread
 from google.oauth2.service_account import Credentials
