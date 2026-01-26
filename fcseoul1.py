@@ -301,7 +301,7 @@ with tab2:
         for ch in CONFIG["chants"]:
             with st.container(border=True):
                 st.markdown(f"**{ch['title']}**")
-                st.write(ch["lyrics"])
+                st.text(ch["lyrics"])
 
     with c3:
         st.subheader("키플레이어 소개")
