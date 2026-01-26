@@ -120,7 +120,7 @@ m = CONFIG["match"]
 kickoff_dt = parse_kickoff_kst(m)
 is_before_kickoff = now_kst() < kickoff_dt
 
-st.title("FC서울 팬 참여 허브")
+st.title("WELCOME to FC서울 (1번 출입구)")
 st.caption(
     f"{m['date']}  |  {m['home']} vs {m['away']}  |  킥오프 {m['kickoff']} (KST)  |  {m['venue']}"
 )
