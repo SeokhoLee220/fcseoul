@@ -9,9 +9,7 @@ from PIL import Image, ImageDraw
 
 MAP_PATH = "assets/서울월드컵경기장.gif"
 
-# =========================
-# 기본 설정
-# =========================
+
 st.set_page_config(
     page_title="FC서울 팬 참여 허브",
     layout="wide",
@@ -25,7 +23,7 @@ CONFIG = {
     "match": {
         "home": "FC서울",
         "away": "상대팀",
-        "date": "2026-01-23",
+        "date": "2026-04-23",
         "kickoff": "05:30",
         "venue": "서울월드컵경기장(상암)",
     },
@@ -58,10 +56,8 @@ CONFIG = {
         "max_chars": 10,
     },
 
-    # 하프타임 인상깊었던 선수 후보
     "impressive_players": ["선수 A", "선수 B", "선수 C", "선수 D"],
 
-    # MOM 후보
     "mom_candidates": ["선수 A", "선수 B", "선수 C", "선수 D"],
 }
 
@@ -141,12 +137,8 @@ tab1, tab2, tab3 = st.tabs(["오늘의 이벤트", "오늘의 정보", "경기�
 # 탭 1: 오늘의 이벤트
 
 with tab1:
-    # ✅ 3개 설문을 서브 탭으로 분리
     t_pred, t_half, t_mom = st.tabs(["승부 예측", "하프타임 퀴즈", "오늘의 MOM"])
 
-    # =========================
-    # 1) 승패/스코어 예측
-    # =========================
     with t_pred:
         st.subheader("경기 전: 승부 예측")
 
@@ -177,7 +169,6 @@ with tab1:
                     disabled=not is_before_kickoff,
                 )
 
-            # 스코어 → 자동 판정
             if seoul_goals > seoul_conceded:
                 auto_pred = "FC서울 승"
             elif seoul_goals == seoul_conceded:
@@ -213,10 +204,6 @@ with tab1:
                     },
                 )
                 st.success("제출 완료!")
-
-    # =========================
-    # 2) 하프타임 퀴즈
-    # =========================
 
 
     with t_half:
@@ -262,9 +249,6 @@ with tab1:
                     )
                     st.success("제출 완료!")
 
-    # =========================
-    # 3) 오늘의 MOM 투표
-    # =========================
     with t_mom:
         st.subheader("Man of the Match 투표")
 
@@ -358,7 +342,7 @@ with tab3:
 import gspread
 from google.oauth2.service_account import Credentials
 
-@st.cache_resource  # ✅ 매번 인증/연결하지 않게 캐시
+@st.cache_resource
 def get_gsheet():
     creds_dict = dict(st.secrets["google"])
     scopes = [
@@ -373,7 +357,6 @@ def get_gsheet():
 
     sh = gc.open(spreadsheet_name)
 
-    # 워크시트 없으면 생성
     try:
         ws = sh.worksheet(worksheet_name)
     except gspread.WorksheetNotFound:
@@ -384,7 +367,6 @@ def get_gsheet():
 def append_row_gsheet(row: dict):
     ws = get_gsheet()
 
-    # ✅ 1) 헤더 읽기 (가능하면 1행만)
     values = ws.get_all_values()
     if len(values) == 0:
         headers = list(row.keys())
@@ -392,14 +374,12 @@ def append_row_gsheet(row: dict):
     else:
         headers = values[0]
 
-    # ✅ 2) 누락 컬럼이 있으면 헤더 확장
     missing = [k for k in row.keys() if k not in headers]
     if missing:
         headers = headers + missing
         ws.delete_rows(1)
         ws.insert_row(headers, 1)
 
-    # ✅ 3) 헤더 순서대로 값 채워서 append
     row_values = [row.get(h, "") for h in headers]
     ws.append_row(row_values, value_input_option="USER_ENTERED")
     
