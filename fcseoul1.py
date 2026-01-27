@@ -7,7 +7,7 @@ import pandas as pd
 import streamlit as st
 from PIL import Image, ImageDraw
 
-MAP_PATH = "assets/서울월드컵경기장.gif"
+MAP_PATH = "assets/서울월드컵경기장.jpg"
 
 
 st.set_page_config(
