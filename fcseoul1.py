@@ -214,7 +214,7 @@ with tab1:
             submitted = st.form_submit_button(
                 "예측 제출",
                 
-                disabled=(not is_before_kickoff)
+                disabled=(pred_goal == "선택하세요") or (pred_pick == "선택하세요") or (not is_before_kickoff)
             )    
             
 
