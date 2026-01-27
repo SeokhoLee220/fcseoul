@@ -237,7 +237,7 @@ with tab2:
     with b2:
         st.subheader("FC서울 역사 퀴즈 (단답형)") 
         
-        with st.form("form_quiz"):
+        with st.form("form_quiz1"):
             quiz_custom1 = ""
 
             comment1 = st.text_input("FC서울의 창단년도는?")
@@ -246,7 +246,7 @@ with tab2:
     with b2:
         st.subheader("FC서울 역사 퀴즈 (O / X)") 
         
-        with st.form("form_quiz"):
+        with st.form("form_quiz2"):
             quiz_custom2 = ""
 
             comment2 = st.text_input("FC서울의 창단년도는 1983년이다.")
