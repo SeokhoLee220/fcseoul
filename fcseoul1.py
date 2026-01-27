@@ -229,7 +229,7 @@ with tab1:
             impressive_custom = ""
             submitted_h = st.form_submit_button("제출")
 with tab2:
-    b1, b2, b3 = st.columns([3],gap="large")
+    b1, b2, b3 = st.columns([1,1,1],gap="large")
     
     with b1:
         st.subheader("포토존 응원 인증")
