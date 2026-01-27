@@ -198,7 +198,8 @@ with tab1:
                 auto_pred = "FC서울 패"
 
             pred_pick = st.selectbox("오늘의 Man of the Match를 예측하세요", CONFIG["mom_candidates"])
-
+            pred_goal = st.selectbox("오늘 경기 첫 득점 선수를 예측하세요", CONFIG["mom_candidates"])
+            
             submitted = st.form_submit_button(
                 "예측 제출",
                 
