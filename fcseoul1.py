@@ -234,6 +234,14 @@ with tab2:
     with b1:
         st.subheader("포토존 응원 인증")
         
+        with st.form("form_photozone"):
+            uploaded_photo = st.file_uploader(
+                "응원 포즈 사진을 업로드해주세요",
+                type=["jpg", "jpeg", "png"]
+                )
+
+            submitted_photo = st.form_submit_button("인증 제출")
+    
     with b2:
         st.subheader("FC서울 역사 퀴즈 (단답형)") 
         
@@ -243,14 +251,17 @@ with tab2:
             comment1 = st.text_input("FC서울의 창단년도는?")
             submitted_q1 = st.form_submit_button("제출")
             
-    with b2:
+    with b3:
         st.subheader("FC서울 역사 퀴즈 (O / X)") 
         
         with st.form("form_quiz2"):
             quiz_custom2 = ""
 
-            comment2 = st.text_input("FC서울의 창단년도는 1983년이다.")
-            submitted_q2 = st.form_submit_button("제출")
+            comment2 = st.radio(
+                "FC서울의 창단년도는 1983년이다.",
+                ["O", "X"],
+                horizontal=True
+                )
             
             
 # 탭 2: 오늘의 정보
