@@ -2,6 +2,7 @@ import os
 import json
 from datetime import datetime
 from zoneinfo import ZoneInfo
+import io
 
 import pandas as pd
 import streamlit as st
@@ -359,6 +360,60 @@ with tab4:
 import gspread
 from google.oauth2.service_account import Credentials
 import time
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
+from googleapiclient.http import MediaIoBaseUpload
+
+DRIVE_FOLDER_ID = "1QoLq47HV1xDD7V-AoDaZgDr0x4WAJZxG"
+
+SCOPES = [
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive",
+]
+
+@st.cache_resource
+def get_drive_service():
+    creds = service_account.Credentials.from_service_account_info(
+        st.secrets["gcp_service_account"],
+        scopes=SCOPES
+    )
+    return build("drive", "v3", credentials=creds)
+
+def upload_photo_to_drive(uploaded_file, nickname: str, phone4: str, folder_id: str) -> dict:
+    """
+    uploaded_file: st.camera_input / st.file_uploader 결과(UploadedFile)
+    return: {"file_id":..., "webViewLink":..., "name":...}
+    """
+
+    # 1) 파일명 규칙 강제
+    safe_nickname = "".join(c for c in nickname.strip() if c.isalnum() or c in ["_", "-", " "]).strip()
+    filename = f"{safe_nickname}-{phone4}.jpg"
+
+    # 2) 업로드 파일을 JPG로 통일 (png/heic 등 들어와도 jpg로 변환)
+    img = Image.open(uploaded_file)
+    if img.mode in ("RGBA", "P"):
+        img = img.convert("RGB")
+
+    buf = io.BytesIO()
+    img.save(buf, format="JPEG", quality=90)
+    buf.seek(0)
+
+    media = MediaIoBaseUpload(buf, mimetype="image/jpeg", resumable=False)
+
+    service = get_drive_service()
+
+    file_metadata = {
+        "name": filename,
+        "parents": [folder_id],
+    }
+
+    created = service.files().create(
+        body=file_metadata,
+        media_body=media,
+        fields="id, name, webViewLink"
+    ).execute()
+    
+    return created
 
 @st.cache_resource
 def get_gsheet():
@@ -475,15 +530,34 @@ if "pred_submitted_photo" not in st.session_state:
     st.session_state.pred_submitted_photo = False
     
 if submitted_photo and not st.session_state.pred_submitted_photo:
-    append_row_gsheet(
-    {
-        "ts": now_kst_str(),
-        "type": "photozone",
-        "nickname": nickname.strip(),
-        "phone4": phone4.strip(),
-        "사진": uploaded_photo,
-    }
-    )
+    if uploaded_photo is None:
+        st.warning("사진을 업로드한 뒤 제출해 주세요.")
+    else:
+        try:
+            created = upload_photo_to_drive(
+                uploaded_photo,
+                nickname=nickname.strip(),
+                phone4=phone4.strip(),
+                folder_id=DRIVE_FOLDER_ID
+            )
+            photo_url = created.get("webViewLink", "")
+            photo_file_id = created.get("id", "")
+            photo_name = created.get("name", "")
+
+        except Exception as e:
+            st.error(f"사진 업로드 중 오류가 발생했습니다: {e}")
+            st.stop()
+        append_row_gsheet(
+            {
+                "ts": now_kst_str(),
+                "type": "photozone",
+                "nickname": nickname.strip(),
+                "phone4": phone4.strip(),
+                "사진_파일명": photo_name,
+                "사진_file_id": photo_file_id,
+                "사진_url": photo_url,
+            }
+        )
     st.session_state.pred_submitted_photo = True
     msg = st.empty()
     msg.success(
