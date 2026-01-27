@@ -419,13 +419,13 @@ if submitted and not st.session_state.pred_submitted:
         )
     st.session_state.pred_submitted = True
     
-msg = st.empty()
-msg.success(
+    msg = st.empty()
+    msg.success(
     "🔴⚫ **RED SEOUL!**\n\n"
     "성공적으로 제출되었습니다"
-)
-time.sleep(1.2)
-msg.empty()
+    )
+    time.sleep(1.2)
+    msg.empty()
 
 if "pred_submitted_c" not in st.session_state:
     st.session_state.pred_submitted_c = False
@@ -441,13 +441,13 @@ if submitted_c and not st.session_state.pred_submitted_c:
             }
         )
     st.session_state.pred_submitted_c = True
-msg = st.empty()
-msg.success(
+    msg = st.empty()
+    msg.success(
     "🔴⚫ **RED SEOUL!**\n\n"
     "성공적으로 제출되었습니다"
-)
-time.sleep(1.2)
-msg.empty()
+    )
+    time.sleep(1.2)
+    msg.empty()
 
 if "pred_submitted_h" not in st.session_state:
     st.session_state.pred_submitted_h = False
@@ -463,13 +463,13 @@ if submitted_h and not st.session_state.pred_submitted_h:
     }
     )
     st.session_state.pred_submitted_h = True
-msg = st.empty()
-msg.success(
-    "🔴⚫ **RED SEOUL!**\n\n"
-    "성공적으로 제출되었습니다"
-)
-time.sleep(1.2)
-msg.empty()
+    msg = st.empty()
+    msg.success(
+        "🔴⚫ **RED SEOUL!**\n\n"
+        "성공적으로 제출되었습니다"
+        )
+    time.sleep(1.2)
+    msg.empty()
 
 if "pred_submitted_photo" not in st.session_state:
     st.session_state.pred_submitted_photo = False
@@ -485,13 +485,13 @@ if submitted_photo and not st.session_state.pred_submitted_photo:
     }
     )
     st.session_state.pred_submitted_photo = True
-msg = st.empty()
-msg.success(
+    msg = st.empty()
+    msg.success(
     "🔴⚫ **RED SEOUL!**\n\n"
     "성공적으로 제출되었습니다"
 )
-time.sleep(1.2)
-msg.empty()
+    time.sleep(1.2)
+    msg.empty()
 
 if "pred_submitted_q1" not in st.session_state:
     st.session_state.pred_submitted_q1 = False
@@ -507,13 +507,13 @@ if submitted_q1 and not st.session_state.pred_submitted_q1:
     }
     )
     st.session_state.pred_submitted_q1 = True
-msg = st.empty()
-msg.success(
-    "🔴⚫ **RED SEOUL!**\n\n"
-    "성공적으로 제출되었습니다"
-)
-time.sleep(1.2)
-msg.empty()
+    msg = st.empty()
+    msg.success(
+        "🔴⚫ **RED SEOUL!**\n\n"
+        "성공적으로 제출되었습니다"
+        )
+    time.sleep(1.2)
+    msg.empty()
 
 if "pred_submitted_q2" not in st.session_state:
     st.session_state.pred_submitted_q2 = False
@@ -529,10 +529,10 @@ if submitted_q2 and not st.session_state.pred_submitted_q2:
     }
     )
     st.session_state.pred_submitted_q2 = True
-msg = st.empty()
-msg.success(
+    msg = st.empty()
+    msg.success(
     "🔴⚫ **RED SEOUL!**\n\n"
     "성공적으로 제출되었습니다"
-)
-time.sleep(1.2)
-msg.empty()
+    )
+    time.sleep(1.2)
+    msg.empty()
