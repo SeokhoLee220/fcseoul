@@ -429,7 +429,7 @@ if submitted_c and not st.session_state.pred_submitted_c:
     append_row_gsheet(
         {
             "ts": now_kst_str(),
-            "type": "cheer",
+            "type": "prediction",
             "nickname": nickname.strip(),
             "phone4": phone4.strip(),
             "응원 한마디": comment, 
@@ -447,7 +447,7 @@ if submitted_h and not st.session_state.pred_submitted_h:
     append_row_gsheet(
     {
         "ts": now_kst_str(),
-        "type": "halftime",
+        "type": "prediction",
         "nickname": nickname.strip(),
         "phone4": phone4.strip(),
         "하프타임 퀴즈 답안": short_q.strip(),
@@ -465,7 +465,7 @@ if submitted_photo and not st.session_state.pred_submitted_photo:
     append_row_gsheet(
     {
         "ts": now_kst_str(),
-        "type": "photozone",
+        "type": "prediction",
         "nickname": nickname.strip(),
         "phone4": phone4.strip(),
         "사진": uploaded_photo,
@@ -483,7 +483,7 @@ if submitted_q1 and not st.session_state.pred_submitted_q1:
     append_row_gsheet(
     {
         "ts": now_kst_str(),
-        "type": "quiz1",
+        "type": "prediction",
         "nickname": nickname.strip(),
         "phone4": phone4.strip(),
         "퀴즈 답안1": comment1.strip(),
@@ -501,7 +501,7 @@ if submitted_q2 and not st.session_state.pred_submitted_q2:
     append_row_gsheet(
     {
         "ts": now_kst_str(),
-        "type": "quiz2",
+        "type": "prediction",
         "nickname": nickname.strip(),
         "phone4": phone4.strip(),
         "퀴즈 답안2": comment2,
