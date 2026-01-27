@@ -240,7 +240,7 @@ with tab2:
                 type=["jpg", "jpeg", "png"]
                 )
 
-            submitted_photo = st.form_submit_button("인증 제출")
+            submitted_photo = st.form_submit_button("제출")
     
     with b2:
         st.subheader("FC서울 역사 퀴즈 (단답형)") 
@@ -262,7 +262,7 @@ with tab2:
                 ["O", "X"],
                 horizontal=True
                 )
-            
+            submitted_q2 = st.form_submit_button("제출")            
             
 # 탭 2: 오늘의 정보
 with tab3:
