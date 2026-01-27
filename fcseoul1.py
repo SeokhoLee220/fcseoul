@@ -297,14 +297,37 @@ with tab4:
     
     with left2:
         st.subheader("서울월드컵경기장 지도")
-    
-        if os.path.exists(MAP_PATH):
+
+        # (1) 구역별 경로 지도 매핑
+        ROUTE_MAPS = {
+            "구역 1": "assets/routes/1-A.jpg",
+            "구역 2": "assets/routes/1-B.jpg",
+            "구역 3": "assets/routes/1-C.jpg",
+        }
+
+        # (2) 구역 선택 UI
+        selected_zone = st.selectbox(
+            "출입구 1 기준 목적지를 선택하세요",
+            ["전체 지도 보기"] + list(ROUTE_MAPS.keys())
+        )
+        
+        if selected_zone == "전체 지도 보기":
+            if os.path.exists(MAP_PATH):
                 img = Image.open(MAP_PATH)
-                st.image(img, use_container_width=True)
+                st.image(img, caption="서울월드컵경기장 전체 지도", use_container_width=True)
+            else:
+                st.warning("전체 지도 이미지가 없습니다. 경로를 확인하세요.")
         else:
-                st.warning("지도 이미지가 없습니다. assets/서울월드컵경기장.gif 경로를 확인하세요.")
-
-
+            route_img_path = ROUTE_MAPS[selected_zone]
+            if os.path.exists(route_img_path):
+                img = Image.open(route_img_path)
+                st.image(
+                    img,
+                    caption=f"출입구 1 → {selected_zone} 추천 경로",
+                    use_container_width=True
+                )
+            else:
+                st.warning(f"{selected_zone} 경로 지도 이미지가 없습니다.")
     with right2:
         with st.container(border=True):
             st.markdown("**포토존**")
