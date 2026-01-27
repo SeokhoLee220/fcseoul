@@ -220,11 +220,11 @@ with tab1:
 
         final_mom = ""
 
-        with st.form("form_mom"):
-            mom_custom = ""
+        with st.form("form_cheer"):
+            cheer_custom = ""
 
             comment = st.text_input("FC 서울을 위한 응원 한마디")
-            submitted_m = st.form_submit_button("제출")
+            submitted_c = st.form_submit_button("제출")
 
     with t_half:
         st.subheader("하프타임 퀴즈")
@@ -400,43 +400,114 @@ def append_row_gsheet(row: dict):
     row_values = [row.get(h, "") for h in headers]
     ws.append_row(row_values, value_input_option="USER_ENTERED")
     
-append_row_gsheet(
-    {
-        "ts": now_kst_str(),
-        "type": "prediction",
-        "nickname": nickname.strip(),
-        "phone4": phone4.strip(),
-        "new_fan": is_new_fan,
-        "prediction": pred,
-        "auto_prediction": auto_pred,
-        "seoul_goals": seoul_goals,
-        "seoul_conceded": seoul_conceded,
-        "match": f"{m['home']} vs {m['away']} ({m['date']})",
-    }
-)
+if "pred_submitted" not in st.session_state:
+    st.session_state.pred_submitted = False
+    
+if submitted and not st.session_state.pred_submitted:    
+    append_row_gsheet(
+        {
+            "ts": now_kst_str(),
+            "type": "prediction",
+            "nickname": nickname.strip(),
+            "phone4": phone4.strip(),
+            "new_fan": is_new_fan,
+            "승무패 예측": pred,
+            "스코어 예측": f"{seoul_goals} - {seoul_conceded}",
+            "첫 득점자" : pred_goal,
+            }
+        )
+    st.session_state.pred_submitted = True
+    
+    st.success(
+        "🔴⚫ **RED SEOUL!**\n\n"
+        "성공적으로 제출되었습니다")
 
-append_row_gsheet(
+if "pred_submitted_c" not in st.session_state:
+    st.session_state.pred_submitted_c = False
+    
+if submitted_c and not st.session_state.pred_submitted_c:    
+    append_row_gsheet(
+        {
+            "ts": now_kst_str(),
+            "type": "cheer",
+            "nickname": nickname.strip(),
+            "phone4": phone4.strip(),
+            "응원 한마디": comment, 
+            }
+        )
+    st.session_state.pred_submitted_c = True
+    st.success(
+        "🔴⚫ **RED SEOUL!**\n\n"
+        "성공적으로 제출되었습니다")
+
+if "pred_submitted_h" not in st.session_state:
+    st.session_state.pred_submitted_h = False
+    
+if submitted_h and not st.session_state.pred_submitted_h:
+    append_row_gsheet(
     {
         "ts": now_kst_str(),
         "type": "halftime",
         "nickname": nickname.strip(),
         "phone4": phone4.strip(),
-        "new_fan": is_new_fan,
-        "halftime_short_answer": short_q.strip(),
-        "impressive_player": final_player,
-        "match": f"{m['home']} vs {m['away']} ({m['date']})",
+        "하프타임 퀴즈 답안": short_q.strip(),
     }
-)
+    )
+    st.session_state.pred_submitted_h = True
+    st.success(
+        "🔴⚫ **RED SEOUL!**\n\n"
+        "성공적으로 제출되었습니다")
 
-append_row_gsheet(
+if "pred_submitted_photo" not in st.session_state:
+    st.session_state.pred_submitted_photo = False
+    
+if submitted_photo and not st.session_state.pred_submitted_photo:
+    append_row_gsheet(
     {
         "ts": now_kst_str(),
-        "type": "mom",
+        "type": "photozone",
         "nickname": nickname.strip(),
         "phone4": phone4.strip(),
-        "new_fan": is_new_fan,
-        "mom": final_mom,
-        "comment": comment.strip(),
-        "match": f"{m['home']} vs {m['away']} ({m['date']})",
+        "사진": uploaded_photo,
     }
-)
+    )
+    st.session_state.pred_submitted_photo = True
+    st.success(
+        "🔴⚫ **RED SEOUL!**\n\n"
+        "성공적으로 제출되었습니다")
+
+if "pred_submitted_q1" not in st.session_state:
+    st.session_state.pred_submitted_q1 = False
+    
+if submitted_q1 and not st.session_state.pred_submitted_q1:
+    append_row_gsheet(
+    {
+        "ts": now_kst_str(),
+        "type": "quiz1",
+        "nickname": nickname.strip(),
+        "phone4": phone4.strip(),
+        "퀴즈 답안1": comment1.strip(),
+    }
+    )
+    st.session_state.pred_submitted_q1 = True
+    st.success(
+        "🔴⚫ **RED SEOUL!**\n\n"
+        "성공적으로 제출되었습니다")
+
+if "pred_submitted_q2" not in st.session_state:
+    st.session_state.pred_submitted_q2 = False
+    
+if submitted_q2 and not st.session_state.pred_submitted_q2:
+    append_row_gsheet(
+    {
+        "ts": now_kst_str(),
+        "type": "quiz2",
+        "nickname": nickname.strip(),
+        "phone4": phone4.strip(),
+        "퀴즈 답안2": comment2,
+    }
+    )
+    st.session_state.pred_submitted_q2 = True
+    st.success(
+        "🔴⚫ **RED SEOUL!**\n\n"
+        "성공적으로 제출되었습니다")
