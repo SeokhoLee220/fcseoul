@@ -153,7 +153,7 @@ with st.container(border=True):
 
 st.divider()
 
-tab1, tab2, tab3 = st.tabs(["오늘의 이벤트", "오늘의 정보", "경기장 정보"])
+tab1, tab2, tab3, tab4 = st.tabs(["Red Seoul", "Red Seoul Mission", "Today's Match", "경기장 정보"])
 
 # 탭 1: 오늘의 이벤트
 
@@ -228,9 +228,33 @@ with tab1:
 
             impressive_custom = ""
             submitted_h = st.form_submit_button("제출")
-
-# 탭 2: 오늘의 정보
 with tab2:
+    b1, b2, b3 = st.columns([3],gap="large")
+    
+    with b1:
+        st.subheader("포토존 응원 인증")
+        
+    with b2:
+        st.subheader("FC서울 역사 퀴즈 (단답형)") 
+        
+        with st.form("form_quiz"):
+            quiz_custom1 = ""
+
+            comment1 = st.text_input("FC서울의 창단년도는?")
+            submitted_q1 = st.form_submit_button("제출")
+            
+    with b2:
+        st.subheader("FC서울 역사 퀴즈 (O / X)") 
+        
+        with st.form("form_quiz"):
+            quiz_custom2 = ""
+
+            comment2 = st.text_input("FC서울의 창단년도는 1983년이다.")
+            submitted_q2 = st.form_submit_button("제출")
+            
+            
+# 탭 2: 오늘의 정보
+with tab3:
     c1, c2, c3 = st.columns([1, 1, 1], gap="large")
 
     with c1:
@@ -257,7 +281,7 @@ with tab2:
 
 
 # 탭 3: 경기장 정보
-with tab3:
+with tab4:
     left2, right2 = st.columns([1.2, 1], gap="large")
     
     with left2:
