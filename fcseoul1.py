@@ -61,17 +61,17 @@ CONFIG = {
 
 
     "chants": [
-        {"title": "우리의 서울", "lyrics": "서울 우리의 서울 너와 나 함께 오늘을 기억할 거야\n서울 우리의 서울 언제나 우리 내일을 노래할 거야\n서울 서울 서울 서울\n수많은 밤을 보내며 너와 나 지쳐갈 때면\n우린 때로 끝을 바라겠지만   그 어둠 속에서\n아파했던 맘은 언젠가는 다 희미해질 거야\n메마른 밤의 끝에서 조금은 힘들겠지만\n똑같은 어젠 오지 않을 거라고\n나의 손을 잡아 이 밤을 열고\n밝은 빛을 찾아   우린 나아갈 거야 함께\n서울 우리의 서울 너와 나 함께 오늘을 기억할 거야\n서울 우리의 서울 언제나 우리 내일을 노래할 거야\n서울 서울 서울 서울\n아침을 맞이하고서 너와 나 마주볼 때면\n슬픔 가득한 기억도 있겠지만\n그 시간 속에서 너와 나 함께면\n두려움은 없을 것만 같아 우린\n서울 우리의 서울 너와 나 함께 오늘을 기억할 거야\n서울 우리의 서울 언제나 우리 내일을 노래할 거야\n서울 서울 서울 서울\n서울 우리의 서울 너와 나 함께 오늘을 기억할 거야\n서울 우리의 서울 언제나 우리 내일을 노래할 거야\n서울 우리의 서울 너와 나 함께 오늘을 기억할 거야\n서울 우리의 서울 언제나 우리 내일을 노래할 거야\n서울 서울 서울 서울"},
-        {"title": "FC서울의 승리를", "lyrics": "|: FC서울의 승리를\nFC서울의 승리를\nFC서울 오늘 승리하리라\nFC서울의 승리를\nFC서울 알레오 (서울)\nFC서울 알레오 (서울)\nFC서울 알레알레오\nFC서울 알레오 (서울) :|\n|: 알레 알레 알레오 알레오 (서울)\n알레 알레 알레오 알레오 (서울)\n알레 알레 알레오 알레 알레 알레오\n알레 알레 알레오 알레오 (서울) :|"},
+        {"title": "우리의 서울", "lyrics": "서울 우리의 서울 너와 나 함께 오늘을 기억할 거야\n서울 우리의 서울 언제나 우리 내일을 노래할 거야\n서울 서울 서울 서울\n수많은 밤을 보내며 너와 나 지쳐갈 때면\n우린 때로 끝을 바라겠지만   그 어둠 속에서\n아파했던 맘은 언젠가는 다 희미해질 거야\n메마른 밤의 끝에서 조금은 힘들겠지만\n똑같은 어젠 오지 않을 거라고\n나의 손을 잡아 이 밤을 열고\n밝은 빛을 찾아   우린 나아갈 거야 함께\n서울 우리의 서울 너와 나 함께 오늘을 기억할 거야\n서울 우리의 서울 언제나 우리 내일을 노래할 거야\n서울 서울 서울 서울\n아침을 맞이하고서 너와 나 마주볼 때면\n슬픔 가득한 기억도 있겠지만\n그 시간 속에서 너와 나 함께면\n두려움은 없을 것만 같아 우린\n서울 우리의 서울 너와 나 함께 오늘을 기억할 거야\n서울 우리의 서울 언제나 우리 내일을 노래할 거야\n서울 서울 서울 서울\n서울 우리의 서울 너와 나 함께 오늘을 기억할 거야\n서울 우리의 서울 언제나 우리 내일을 노래할 거야\n서울 우리의 서울 너와 나 함께 오늘을 기억할 거야\n서울 우리의 서울 언제나 우리 내일을 노래할 거야\n서울 서울 서울 서울"
+         ,"link": "https://www.instagram.com/fcseoul/"},
+        {"title": "FC서울의 승리를", "lyrics": "|: FC서울의 승리를\nFC서울의 승리를\nFC서울 오늘 승리하리라\nFC서울의 승리를\nFC서울 알레오 (서울)\nFC서울 알레오 (서울)\nFC서울 알레알레오\nFC서울 알레오 (서울) :|\n|: 알레 알레 알레오 알레오 (서울)\n알레 알레 알레오 알레오 (서울)\n알레 알레 알레오 알레 알레 알레오\n알레 알레 알레오 알레오 (서울) :|",
+         "link": "https://www.instagram.com/fcseoul/"}
     ],
-    "chants_link": "https://www.instagram.com/fcseoul/",
 
     "key_players": [
         {"name": "송민규", "role": "(공격수)", "one_liner": "빠른 침투과 현란한 드리블"},
         {"name": "김진수", "role": "(수비수)", "one_liner": "노련한 수비와 날카로운 크로스"},
         {"name": "강현무", "role": "(골키퍼)", "one_liner": "뛰어난 반사신경과 안정적인 수비"},
     ],
-
 
     "halftime_short": {
         "question": "하프타임 퀴즈",
@@ -155,8 +155,6 @@ with st.container(border=True):
 st.divider()
 
 tab1, tab2, tab3, tab4 = st.tabs(["Red Seoul", "Red Seoul Mission", "Today's Match", "경기장 정보"])
-
-# 탭 1: 오늘의 이벤트
 
 with tab1:
     t_pred, t_half= st.tabs(["경기 전", "하프타임"])
@@ -285,7 +283,6 @@ with tab2:
                 )
             submitted_q2 = st.form_submit_button("제출")            
             
-# 탭 2: 오늘의 정보
 with tab3:
     c1, c2, c3 = st.columns([1, 1, 1], gap="large")
 
@@ -297,22 +294,44 @@ with tab3:
 
     with c2:
         st.subheader("오늘의 응원가")
-        if CONFIG.get("chants_link"):
-            st.link_button("응원가 영상/릴스 보기", CONFIG["chants_link"])
+
         for ch in CONFIG["chants"]:
             with st.container(border=True):
-                st.markdown(f"**{ch['title']}**")
-                st.text(ch["lyrics"])
+                st.markdown(f"### 🎶 {ch['title']}")
 
-    with c3:
-        st.subheader("키플레이어 소개")
-        for kp in CONFIG["key_players"]:
-            with st.container(border=True):
+                if ch.get("link"):
+                    st.link_button("응원가", ch["link"])
+
+            st.markdown("**가사**")
+            st.text(ch["lyrics"])
+
+with c3:
+    st.subheader("키플레이어 소개")
+
+    KEY_PLAYER_PHOTOS = {
+        "송민규": "assets/players/송민규.jpg",
+        "김진수": "assets/players/김진수.jpg",
+        "강현무": "assets/players/강현무.jpg",
+    }
+
+    for kp in CONFIG["key_players"]:
+        with st.container(border=True):
+            col_text, col_img = st.columns([3, 1])
+
+            with col_text:
                 st.markdown(f"**{kp['name']}**  ·  {kp['role']}")
                 st.write(kp["one_liner"])
 
+            with col_img:
+                photo_path = KEY_PLAYER_PHOTOS.get(kp["name"])
+                if photo_path and os.path.exists(photo_path):
+                    img = Image.open(photo_path)
+                    st.image(
+                        img,
+                        caption=kp["name"],
+                        width=120
+                    )
 
-# 탭 3: 경기장 정보
 with tab4:
     left2, right2 = st.columns([1.2, 1], gap="large")
     
@@ -371,7 +390,6 @@ SCOPES = [
     "https://www.googleapis.com/auth/drive",
 ]
 
-@st.cache_resource
 def get_drive_service():
     creds = service_account.Credentials.from_service_account_info(
         st.secrets["gcp_service_account"],
@@ -415,7 +433,6 @@ def upload_photo_to_drive(uploaded_file, nickname: str, phone4: str, folder_id: 
     
     return created
 
-@st.cache_resource
 def get_gsheet():
     creds_dict = dict(st.secrets["google"])
     scopes = [
